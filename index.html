@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Ozz 🎉</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #fceaff, #e0f7fa, #fffde7);
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    /* Intro screen */
+    .intro {
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+    }
+    .intro h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3em;
+      color: #ff66a3;
+      margin-bottom: 15px;
+    }
+    .intro p {
+      font-size: 1.2em;
+      margin-bottom: 25px;
+      color: #444;
+    }
+    .intro button {
+      background: #ff66a3;
+      color: white;
+      font-size: 1.2em;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+    .intro button:hover {
+      background: #ff3380;
+      transform: scale(1.05);
+    }
+
+    /* Notes */
+    .note {
+      width: 260px;
+      height: 200px;
+      padding: 20px;
+      background: #fffbea;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15), 0 0 15px rgba(255, 200, 230, 0.3);
+      border-radius: 12px;
+      position: absolute;
+      cursor: grab;
+      font-size: 1em;
+      line-height: 1.6em;
+      display: none;
+      text-align: center;
+      font-family: 'Dancing Script', cursive;
+      letter-spacing: 0.5px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .note.active {
+      display: block;
+      z-index: 10;
+      animation: fadeIn 0.7s ease;
+    }
+
+    .note:active {
+      cursor: grabbing;
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2), 0 0 25px rgba(255, 160, 200, 0.4);
+    }
+
+    /* Dreamy pastel colors */
+    .note:nth-child(2n) { background: #ffe4ec; }
+    .note:nth-child(3n) { background: #e6f7ff; }
+    .note:nth-child(4n) { background: #e8ffe6; }
+    .note:nth-child(5n) { background: #fff0d1; }
+    .note:nth-child(6n) { background: #f3e8ff; }
+
+    /* Instructions */
+    .instructions {
+      position: fixed;
+      bottom: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: 1.1em;
+      font-weight: 500;
+      color: #444;
+      display: none;
+      animation: fadeIn 1s ease;
+    }
+
+    /* Finale Banner */
+    .final-message {
+      display: none;
+      position: fixed;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Dancing Script', cursive;
+      font-size: 3em;
+      text-align: center;
+      color: #ff3380;
+      animation: glow 2s ease-in-out infinite alternate;
+      z-index: 9999; /* always above notes */
+      background: rgba(255, 255, 255, 0.7);
+      padding: 20px 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff99cc, 0 0 20px #ff99cc; }
+      to { text-shadow: 0 0 20px #ff66a3, 0 0 30px #ff3380; }
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Intro Screen -->
+  <div class="intro" id="intro">
+    <h1>Happy Birthday, Ozz 🎂✨</h1>
+    <p>I made something small but special for you 💕</p>
+    <button onclick="startSurprise()">Click to start your surprise ✨</button>
+  </div>
+
+  <!-- Notes -->
+  <div class="note">Hiii Ozz 👋</div>
+  <div class="note">I know this might feel a bit cheesy...<br> but I wanted to do something special 📝</div>
+  <div class="note">I just wanted to tell you...<br> you are special 💫</div>
+  <div class="note">I know we’re not like a “serious couple”...<br> but I still care more than just a fling 💕</div>
+  <div class="note">You don’t have to share everything with me...<br> but I’d love to be that person you can open up to 🌸</div>
+  <div class="note">No pressure. No expectations.<br> Just me, reminding you that you matter 🌍</div>
+  <div class="note">Sometimes life feels confusing...<br> but hey, at least you’ve got someone who genuinely cares 😌</div>
+  <div class="note">This isn’t perfect... but neither am I.<br> And I still think you’re worth it 💛</div>
+  <div class="note">💌 That’s all for now... but I hope this little thing made you smile, Ozz ✨</div>
+
+  <!-- Instructions -->
+  <div class="instructions" id="instructions">👉 Drag the note to reveal the next one 💌</div>
+
+  <!-- Finale Message -->
+  <div class="final-message" id="finalMessage">
+    🎉 Happy Birthday Ozz ✨<br>
+    You’re truly special 💕
+  </div>
+
+  <!-- Confetti -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <script>
+    const notes = document.querySelectorAll('.note');
+    const instructions = document.getElementById('instructions');
+    const finalMessage = document.getElementById('finalMessage');
+    let currentIndex = 0;
+
+    function startSurprise() {
+      document.getElementById("intro").style.display = "none";
+      notes[currentIndex].classList.add("active");
+      instructions.style.display = "block";
+    }
+
+    function makeDraggable(note) {
+      note.addEventListener('mousedown', function(e) {
+        let shiftX = e.clientX - note.getBoundingClientRect().left;
+        let shiftY = e.clientY - note.getBoundingClientRect().top;
+
+        function moveAt(pageX, pageY) {
+          note.style.left = pageX - shiftX + 'px';
+          note.style.top = pageY - shiftY + 'px';
+        }
+
+        function onMouseMove(e) {
+          moveAt(e.pageX, e.pageY);
+        }
+
+        document.addEventListener('mousemove', onMouseMove);
+
+        note.onmouseup = function() {
+          document.removeEventListener('mousemove', onMouseMove);
+          note.onmouseup = null;
+
+          if (currentIndex < notes.length - 1) {
+            currentIndex++;
+            notes[currentIndex].classList.add("active");
+          } else {
+            instructions.style.display = "none";
+            launchConfetti();
+            finalMessage.style.display = "block";
+          }
+        };
+      });
+
+      note.ondragstart = function() {
+        return false;
+      };
+    }
+
+    notes.forEach(note => makeDraggable(note));
+
+    // Confetti animation
+    function launchConfetti() {
+      const canvas = document.getElementById('confettiCanvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const pieces = [];
+      const numberOfPieces = 150;
+
+      for (let i = 0; i < numberOfPieces; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 10 + 5,
+          speed: Math.random() * 3 + 2,
+          color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+        });
+      }
+
+      function update() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.y += p.speed;
+          if (p.y > canvas.height) p.y = -10;
+          ctx.fillStyle = p.color;
+          ctx.fillRect(p.x, p.y, p.size, p.size);
+        });
+        requestAnimationFrame(update);
+      }
+
+      update();
+    }
+
+     // Floating stars background
+  const starCanvas = document.createElement("canvas");
+  starCanvas.id = "starCanvas";
+  document.body.prepend(starCanvas);
+
+  const ctxStar = starCanvas.getContext("2d");
+  starCanvas.width = window.innerWidth;
+  starCanvas.height = window.innerHeight;
+
+  const stars = [];
+  const numStars = 100;
+
+  for (let i = 0; i < numStars; i++) {
+    stars.push({
+      x: Math.random() * starCanvas.width,
+      y: Math.random() * starCanvas.height,
+      radius: Math.random() * 1.5 + 0.5,
+      speed: Math.random() * 0.3 + 0.1,
+      opacity: Math.random(),
+      flicker: Math.random() * 0.02 + 0.01
+    });
+  }
+
+  function drawStars() {
+    ctxStar.clearRect(0, 0, starCanvas.width, starCanvas.height);
+    stars.forEach(star => {
+      ctxStar.beginPath();
+      ctxStar.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+      ctxStar.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+      ctxStar.fill();
+
+      // Twinkle effect
+      star.opacity += star.flicker * (Math.random() > 0.5 ? 1 : -1);
+      if (star.opacity < 0.2) star.opacity = 0.2;
+      if (star.opacity > 1) star.opacity = 1;
+
+      // Move stars slowly downward
+      star.y += star.speed;
+      if (star.y > starCanvas.height) {
+        star.y = -2;
+        star.x = Math.random() * starCanvas.width;
+      }
+    });
+    requestAnimationFrame(drawStars);
+  }
+
+  drawStars();
+
+  // Make sure canvas always covers screen
+  window.addEventListener("resize", () => {
+    starCanvas.width = window.innerWidth;
+    starCanvas.height = window.innerHeight;
+  });
+
+  // Style: send stars behind everything
+  starCanvas.style.position = "fixed";
+  starCanvas.style.top = "0";
+  starCanvas.style.left = "0";
+  starCanvas.style.zIndex = "-1";
+  </script>
+</body>
+</html>
